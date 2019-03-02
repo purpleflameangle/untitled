@@ -186,3 +186,5 @@ f.count += 10
 print(d.count, e.count, f.count)
 D.count += 100
 print(d.count, e.count, f.count)
+
+#新
