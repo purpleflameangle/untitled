@@ -1,0 +1,42 @@
+# Title     : TODO
+# Objective : TODO
+# Created by: hermes
+# Created on: 2019-01-31
+{
+    "TestId": "testcase004",
+    "Method": "post",
+    "Title":  "single send message",
+    "Desc": "single send message",
+    "Url": "",
+    "InputArg":{
+        "action": "44803",
+        "account": "186**",
+        "uniqueid": "00d7",
+        "title": "test",
+        "summary": "dou",
+        "message": "12345",
+        "msgtype": "25",
+        "menuid": "203"
+
+    },
+    "headers":{
+        "token" : ""
+    },
+    "body":{
+        "username": "",
+        "password": ""
+    },
+    "Result": {
+        "status": 0,
+        "data": {
+            "uid": ,
+            "mobile": "",
+            "email": "",
+        },
+        "token": ""
+
+    },
+    "message": ""
+
+
+}
