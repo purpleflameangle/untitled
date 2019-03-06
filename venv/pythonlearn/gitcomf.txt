@@ -1,0 +1,24 @@
+# encoding : utf-8
+the file from https://blog.csdn.net/Hanani_Jia/article/details/77950594
+ssh -T git@github.com
+git config --global user.name "your name"
+git config --global user.email "your_email@youremail.com"
+
+create a new repository on the command line
+# echo "# test">>README.MD
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/.../test.git
+git push -u origin master
+
+cd file
+#In this file
+git add test.txt
+git commit -m "cc"
+git push origin master
+
+
+push an existing repository from the command line
+git remote add origin https://github.com/.../test.git
+git push -u origin master
