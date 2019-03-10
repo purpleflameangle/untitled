@@ -1,4 +1,7 @@
 # encoding: utf-8
+import time as t
+
+
 class Rectangle:
     def __init__(self, x, y):
         self.x = x
@@ -104,3 +107,184 @@ print("object d")
 d = D()
 # print(type(d))
 # print(d.__new__())
+
+# ----------------------------------------------------
+
+
+class CreateObject:
+    def __init__(self):
+        # 对象－创建完就会调用
+        print("对象初始化")
+
+    def __new__(cls, *args, **kwargs):
+        print("创建对象")
+        return '1'  # 会将返回值提供给引用对象变量
+
+
+e = CreateObject()
+print(e)
+# 不按系统方式创建对象,返回对象'1',就不会调用_init_方法
+
+
+
+
+class NewInit1(object):
+    def __new__(cls, *args, **kwargs):
+        # Called when creating an object
+        print("create object")
+        # 返回默认的父类object通过__new__方法创建的对象，即通过系统的方式创建的对象
+        return object.__new__(cls)
+
+    def __init__(self):
+        print("Objects are called as soon as they are created")
+        print("Object initialization")
+
+
+newinit1 = NewInit1()
+print(newinit1)
+
+
+'''
+(1)_new_方法是在创建对象时调用的;
+
+_init_方法是在对象一创建完就调用,而且只有通过系统的方法创建的对象才会执行_init_方法,object默认的_new_方法会先于_init_方法调用
+
+(2)_new_方法的形参是类,而_init_方法的形参是对象
+
+"""类方法"""
+# class Dog:
+#     __type = "狗"  # 类属性
+#
+#     #  类方法: 和类属性配合使用,想要访问或者修改类属性时,可以定义类方法
+#     @classmethod  # 方法上边添加 @classmethod 标识,就会自动生成类方法
+#     def get_type(cls):  # 类方法会自动设置第一个形参为cls,调用时自动设置类对象为第一个实参
+#         return cls.__type
+
+'''
+
+
+class F(object):
+    __type = 'lei'
+
+    def __new__(cls, *args, **kwargs):
+        print("创建对象时调用,用于创建对象")
+        return cls.__type
+
+    def __init__(self):
+        print("创建完成对象后 才会调用，拥有初始化")
+
+
+f = F()
+print(f)
+# --------------------------------------------
+
+
+class MyTimer:
+
+    def start(self):
+        self.start = t.localtime()
+        print("time start")
+        # return self.start
+
+
+    def stop(self):
+        self.stop = t.localtime()
+        self.calc()
+        print("time stop")
+        #return self.stop
+
+    def calc(self):
+        self.last = []
+        self.promp = "总共计时了 "
+        for index in range(6):
+            self.last.append(self.stop[index] - self.start[index])
+            self.promp += str(self.last[index])
+        print(self.promp)
+
+
+mt = MyTimer()
+mt.start()
+
+mt.stop()
+
+
+class E:
+    def __init__(self, size=10):
+        self.size = size
+
+    def getsize(self):
+        return self.size
+
+    def setsize(self, value):
+        self.size = value
+
+    def delsize(self):
+        del self.size
+
+    getpre = property(getsize, setsize, delsize)
+
+
+e = E()
+e.getpre = 12
+print(e.getpre)
+# del e.getpre
+# print(e.getpre)
+
+
+# 描述符property
+class MyProperty:
+    def __get__(self, instance, value):
+        print("获取属性", self, instance, value)
+
+    def __set__(self, instance, value):
+        print("设置属性值", self, instance, value)
+
+    def __delete__(self, instance):
+        print("删除数据", self, instance)
+
+
+class MyProperty1:
+    x = MyProperty()
+
+
+mp = MyProperty1()
+print(mp.x)
+mp.x = 'x-man'
+
+del mp.x
+
+
+class MyProperty2:
+    def __init__(self, getx=none, setx=none, delx1=none):
+        self.getx = getx
+        self.setx = setx
+        self.delx1 = delx1
+
+    def __get__(self, instance, owner):
+        return self.getx(instance)
+
+    def __set__(self, instance, value):
+        self.setx(instance, value)
+
+    def __delete__(self, instance):
+        self.delx1(instance)
+
+
+class G:
+    def __init__(self):
+        self._gx = gx
+
+    def __get__(self):
+        return self._gx
+
+    def __set__(self, value):
+        self._gx =value
+
+    def __delete__(self, instance):
+        del self._gx
+
+   gx = MyProperty2(getx, setx, delx1)
+
+g = G()
+print(g)
+print(g.sx('df'))
