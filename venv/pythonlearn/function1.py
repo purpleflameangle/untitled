@@ -311,3 +311,25 @@ class CountList:
 cl = CountList(1, 2, 3, 4)
 print(cl.value)
 print(cl.count)
+
+
+# 迭代器
+class Fibs:
+    def __init__(self, n=20):
+        self.a = 0
+        self.b = 1
+        self.n = n
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.a, self.b = self.b, self.a + self.b
+        if self.a > self.n:
+            raise StopIteration
+        return self.a
+
+
+fibs = Fibs()
+for each in fibs:     # 如果没有__iter__会提示：TypeError: 'Fibs' object is not iterable
+    print(each)
