@@ -232,6 +232,7 @@ print(e.getpre)
 
 
 # 描述符property
+'''
 class MyProperty:
     def __get__(self, instance, value):
         print("获取属性", self, instance, value)
@@ -252,13 +253,15 @@ print(mp.x)
 mp.x = 'x-man'
 
 del mp.x
+'''
 
 
 class MyProperty2:
-    def __init__(self, getx=none, setx=none, delx1=none):
+
+    def __init__(self, getx=None, setx=None, fdelx1=None):
         self.getx = getx
         self.setx = setx
-        self.delx1 = delx1
+        self.fdelx1 = fdelx1  # abc
 
     def __get__(self, instance, owner):
         return self.getx(instance)
@@ -267,24 +270,44 @@ class MyProperty2:
         self.setx(instance, value)
 
     def __delete__(self, instance):
-        self.delx1(instance)
+        self.fdelx1(instance)
 
 
 class G:
     def __init__(self):
-        self._gx = gx
+        self._gx = None
 
-    def __get__(self):
+    def getx(self):  # abc
         return self._gx
 
-    def __set__(self, value):
-        self._gx =value
+    def setx(self, value):
+        self._gx = value
 
-    def __delete__(self, instance):
+    def delx(self):
         del self._gx
+       # print("df")
 
-   gx = MyProperty2(getx, setx, delx1)
+    x = MyProperty2(getx, setx, delx)
+
 
 g = G()
 print(g)
-print(g.sx('df'))
+# print(g.x('df'))
+
+
+class CountList:
+    def __init__(self, *args):
+        self.value = [i for i in args]
+        self.count = {}.fromkeys(range(len(self.value)), 0)
+
+    def len(self):
+        return len(self.value)
+
+    def fs(self, key):
+        self.count[key] += 1
+        return self.value[key]
+
+
+cl = CountList(1, 2, 3, 4)
+print(cl.value)
+print(cl.count)
