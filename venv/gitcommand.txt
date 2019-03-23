@@ -1,0 +1,22 @@
+＃ 创建分支
+git checkout -b dev
+# 相当于git branch dev 和git checkout dev
+
+#查看所有分支，＊为当前分支
+git branch
+
+#提交
+git add readme.txt
+git commit -m "create new branch"
+
+#dev分支的工作完成，我们就可以切换回master分支
+git checkout master
+
+
+#把dev分支的工作成果合并到master分支,此为快速合并：
+git merge dev
+
+＃合并完成，可以删除dev分支
+git branch -d dev
+
+＃删除后查看branch
