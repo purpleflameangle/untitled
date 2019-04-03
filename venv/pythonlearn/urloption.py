@@ -26,3 +26,4 @@ html = response.read().decode('gb2312')
 print(html)
 with open('proxy1.html', 'w+') as f:
     f.write(html)
+
