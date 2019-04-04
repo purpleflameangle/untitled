@@ -9,6 +9,8 @@ git branch
 git add readme.txt
 git commit -m "create new branch"
 
+git push origin master
+
 #dev分支的工作完成，我们就可以切换回master分支
 git checkout master
 
@@ -20,3 +22,4 @@ git merge dev
 git branch -d dev
 
 ＃删除后查看branch
+
