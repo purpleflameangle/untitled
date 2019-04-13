@@ -22,3 +22,6 @@ git push origin master
 push an existing repository from the command line
 git remote add origin https://github.com/.../test.git
 git push -u origin master
+
+#pull a repository
+git pull https://github.com/gz_tester/test
