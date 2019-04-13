@@ -27,3 +27,39 @@ print(html)
 with open('proxy1.html', 'w+') as f:
     f.write(html)
 
+
+'''
+keyword = input("please input:")
+keyworden = keyword.encode('utf-8')
+keyword1 = urllib.parse.urlencode(keyworden)
+request = urllib.request.Request()
+# url = "http://www.baidu.com/search/word/df"
+response = urllib.request.urlopen("http://www.baidu.com/search/word?%s" % keyword1)
+html = response.read()
+print(html)
+
+
+
+
+def main():
+    # url = "http://www.baidu.com"
+    keyword = input("请输入关键字：")
+    keyword1 = urllib.parse.urlencode({"word": keyword})
+    response1 = urllib.request.urlopen("http://baike.baidu.com/search/word?%s" % keyword1)
+    html = response1.read()
+    soup = BeautifulSoup(html, 'html.parser')
+    for each in soup.find_all(href=re.compile('view')):
+        content = ''.join([each.text])
+        url2 = ''.join(["http://baike.baidu.com", each['href']])
+        response2 = urllib.request.urlopen(url2)
+        html2 = response2.load()
+        soup2 = BeautifulSoup(html2, "html.parser")
+        if soup2.h2:
+            content = ''.join([content, soup2.h2.text])
+        content = ''.join([content, "->", url2])
+        print(content)
+
+
+if __name__ == "__main__":
+    main()
+'''
