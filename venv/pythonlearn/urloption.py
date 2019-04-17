@@ -48,6 +48,20 @@ response = urllib.request.urlopen(request)
 html1 = response.read().decode('gb2312')
 response.close()
 print(html1)
+
+#http  header向服务器提交头信息 run success thrid
+keywordheader = input("请输入关键字：")
+urlheader = 'http://www.baidu.com/s?wd=%s' %keywordheader
+context = ssl._create_unverified_context()
+head = {}
+head['Content-Type'] = 'application/json'
+head['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15'
+request1 = urllib.request.Request(url=urlheader, headers=head)
+response2 = urllib.request.urlopen(request1, context=context)
+html = response2.read().decode('utf-8')
+with open('proxy2.html', 'w+') as f:
+    f.write(html)
+
 '''
 
 '''
@@ -70,8 +84,10 @@ urlopen函数有一个data参数，如果给这个参数赋值，那么HTTP请�
 data参数的值必须符合这个application/x-wwww-form-urlencodec的格式。使用urllib.parse.urlencode()将字符串转换为这个格式
 '''
 
+'''
 # POST请求：向指定的服务器提交要被处理的数据。
 # 请求头添加字符参数内容
+# 方法1
 data1 = urllib.parse.urlencode({'wd': "Python post request "}).encode('utf-8')
 request = urllib.request.Request("http://www.baidu.com/s?")
 request.add_header("Content-Type", "application/json")
@@ -81,23 +97,24 @@ response = urllib.request.urlopen(url=request, data=data1, context=context)
 print(response.getcode())
 
 '''
-#http post header向服务器提交头信息 run success thrid
-keywordheader = input("请输入关键字：")
-urlheader = 'http://www.baidu.com/s?wd=%s' %keywordheader
-context = ssl._create_unverified_context()
-head = {}
-head['Content-Type'] = 'application/json'
-head['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15'
-request1 = urllib.request.Request(url=urlheader, headers=head)
-response2 = urllib.request.urlopen(request1, context=context)
-html = response2.read().decode('utf-8')
-with open('proxy2.html', 'w+') as f:
-    f.write(html)
-'''
+
+
+#post 请求 方法2
+url2 = 'http://www.baidu.com/s?'
+paramsdata = urllib.parse.urlencode({'wd': 'Python post请求'}).encode(encoding='UTF-8')
+headers2 = {'Content-Type': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15'}
+request = urllib.request.Request(url=url2, data=paramsdata, headers=headers2)
+response = urllib.request.urlopen(request, context=context)
+result = response.getcode()
+print(result)
 
 
 
 '''
+
+
+
 # soup run success four
 def main():
     # url = "http://www.baidu.com"
