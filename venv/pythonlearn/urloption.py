@@ -96,8 +96,6 @@ response = urllib.request.urlopen(url=request, data=data1, context=context)
 # 确定返回的HTTP状态码
 print(response.getcode())
 
-'''
-
 
 #post 请求 方法2
 url2 = 'http://www.baidu.com/s?'
@@ -110,10 +108,59 @@ result = response.getcode()
 print(result)
 
 
+#http header
+request = urllib.request.Request('http://www.example.com/')
+request.add_header('Referer', 'http://www.python.org')
+urlopen1 = urllib.request.urlopen(request)
+print(urlopen1.getcode())
 
+
+opener = urllib.request.build_opener()
+opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
+print(opener.open('http://www.example.com/'))
+opener.close()
 '''
 
+# from https://docs.python.org/3.8/howto/urllib2.html?highlight=httpbasicauthhandler
+#创建支持openerdirector的基本的http认证,方法1
+# create a password manager
+password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
 
+# Add the username and password.
+# If we knew the realm, we could use it instead of None.
+top_level_url = "http://mahler:8092/site-updates.py"
+username = 'klem'
+password = 'kadidd!ehopper'
+password_mgr.add_password(None, uri=top_level_url, user=username, passwd=password)
+
+handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
+
+# create "opener" (OpenerDirector instance)
+opener = urllib.request.build_opener(handler)
+
+# use the opener to fetch a URL
+a_url = 'http://www.python.org/'
+# opener.open(a_url)
+
+# Install the opener.
+# Now all calls to urllib.request.urlopen use our opener.
+urllib.request.install_opener(opener)
+response1 = urllib.request.urlopen(a_url, context=context)
+print(response1.getcode())
+
+
+'''
+# Create an OpenerDirector with support for Basic HTTP Authentication...
+auth_handler = urllib.request.HTTPBasicAuthHandler()
+auth_handler.add_password(realm='PDQ Application',
+                          uri='https://mahler:8092/site-updates.py',
+                          user='klem',
+                          passwd='kadidd!ehopper')
+opener = urllib.request.build_opener(auth_handler)
+# ...and install it globally so it can be used with urlopen.
+urllib.request.install_opener(opener)
+response = urllib.request.urlopen('http://www.python.org/', context=context)
+print(response.getcode())
 
 # soup run success four
 def main():
