@@ -6,10 +6,11 @@ http.server.BaseHTTPRequestHandler.responses is a useful dictionary of response 
 # Table mapping response codes to messages; entries have the
 # form {code: (shortmessage, longmessage)}.
 responses = {
+  # 1** 这一类型的状态码，代表请求已被接受，需要继续处理
     100: ('Continue', 'Request received, please continue'),
     101: ('Switching Protocols',
           'Switching to new protocol; obey Upgrade header'),
-
+  # 2** 这一类型的状态码，代表请求已成功被服务器接受，理解并接受
     200: ('OK', 'Request fulfilled, document follows'),
     201: ('Created', 'Document created, URL follows'),
     202: ('Accepted',
@@ -18,7 +19,8 @@ responses = {
     204: ('No Content', 'Request fulfilled, nothing follows'),
     205: ('Reset Content', 'Clear input form for further input.'),
     206: ('Partial Content', 'Partial content follows.'),
-
+  # 3** 重定向  这类状态码代表需要客户端采取进一步的操作才能完成请求。通常，这些状态码用来重定向，后续的请求地址（重定向目标）
+  #     在本次响应的location域中指明
     300: ('Multiple Choices',
           'Object has several resources -- see URI list'),
     301: ('Moved Permanently', 'Object moved permanently -- see URI list'),
@@ -31,7 +33,7 @@ responses = {
           'resource.'),
     307: ('Temporary Redirect',
           'Object moved temporarily -- see URI list'),
-
+    #4** 客户端错误 这类的状态码代表了客户端看起来可能发生了错误，妨碍了服务器的处理
     400: ('Bad Request',
           'Bad request syntax or unsupported method'),
     401: ('Unauthorized',
@@ -59,7 +61,7 @@ responses = {
           'Cannot satisfy request range.'),
     417: ('Expectation Failed',
           'Expect condition could not be satisfied.'),
-
+    #5** 服务器错误 代表服务器在处理请求的过程中有错误或者异常状态发生
     500: ('Internal Server Error', 'Server got itself in trouble'),
     501: ('Not Implemented',
           'Server does not support this operation'),

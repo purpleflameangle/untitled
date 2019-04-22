@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 import urllib
 import urllib.request
@@ -90,7 +91,7 @@ data参数的值必须符合这个application/x-wwww-form-urlencodec的格式。
 '''
 # POST请求：向指定的服务器提交要被处理的数据。
 # 请求头添加字符参数内容
-# 方法1
+# 方法1  run success five
 data1 = urllib.parse.urlencode({'wd': "Python post request "}).encode('utf-8')
 request = urllib.request.Request("http://www.baidu.com/s?")
 request.add_header("Content-Type", "application/json")
@@ -100,7 +101,7 @@ response = urllib.request.urlopen(url=request, data=data1, context=context)
 print(response.getcode())
 
 
-#post 请求 方法2
+#post 请求 方法2   run success six
 url2 = 'http://www.baidu.com/s?'
 paramsdata = urllib.parse.urlencode({'wd': 'Python post请求'}).encode(encoding='UTF-8')
 headers2 = {'Content-Type': 'application/json',
@@ -111,19 +112,20 @@ result = response.getcode()
 print(result)
 
 
-#http header
+#http header   run success seven
 request = urllib.request.Request('http://www.example.com/')
 request.add_header('Referer', 'http://www.python.org')
 urlopen1 = urllib.request.urlopen(request)
 print(urlopen1.getcode())
 
-
+# run success eight
 opener = urllib.request.build_opener()
 opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
 print(opener.open('http://www.example.com/'))
 opener.close()
 
 
+# run success nine
 # from https://docs.python.org/3.8/howto/urllib2.html?highlight=httpbasicauthhandler
 #创建支持openerdirector的基本的http认证,方法1
 # create a password manager
@@ -152,7 +154,7 @@ response1 = urllib.request.urlopen(a_url, context=context)
 print(response1.getcode())
 
 
-# Create an OpenerDirector with support for Basic HTTP Authentication...方法2
+# Create an OpenerDirector with support for Basic HTTP Authentication...方法2  run success ten
 auth_handler = urllib.request.HTTPBasicAuthHandler()
 auth_handler.add_password(realm='PDQ Application',
                           uri='https://mahler:8092/site-updates.py',
@@ -165,8 +167,8 @@ response = urllib.request.urlopen('http://www.python.org/', context=context)
 print(response.getcode())
 
 
-# 需要倒入import urllib.request,http.cookiejar
-# httpcookieprocessor
+# 需要倒入import urllib.request,http.cookiejar  run success eleven
+# httpcookieprocessor 方法1
 # 创建cookie容器
 cookie = http.cookiejar.CookieJar()
 handler = urllib.request.HTTPCookieProcessor(cookie)
@@ -176,17 +178,71 @@ opener = urllib.request.build_opener(handler)
 response = opener.open('http://www.baidu.com')
 for item in cookie:
     print(item.name + '=' + item.value)
-'''
 
 
-# 需要倒入import urllib.request,http.cookiejar
-# httpcookieprocessor
+
+# 需要倒入import urllib.request,http.cookiejar run success twelve
+# httpcookieprocessor 方法2
 cookie2 = http.cookiejar.CookieJar()
 opener2 = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie2))
 urllib.request.install_opener(opener2)
 response2 = urllib.request.urlopen('http://www.baidu.com')
 for item2 in cookie2:
     print(item2.name + '=' + item2.value)
+
+
+# ProxyHandler run success thirteen
+# 指定代理方式
+url = 'http://www.baidu.com'
+proxies = {'http': url}
+opener = urllib.request.FancyURLopener(proxies)
+f = opener.open(url)
+# print(f.read().decode('utf-8'))
+print(f.getcode())
+
+
+# 无添加代理 run success fourteen 
+opener = urllib.request.FancyURLopener({})
+f = opener.open(url)
+print(f.getcode())
+'''
+
+# HTTPRedirectHandler 相互自动跳转的方式   run success fifteen
+
+
+class RedirctHandler(urllib.request.HTTPRedirectHandler):
+    """docstring for RedirctHandler"""
+    def http_error_301(self, req, fp, code, msg, headers):
+        pass
+
+    def http_error_302(self, req, fp, code, msg, headers):
+        pass
+
+    def getUnRedirectUrl(url, timeout=10):
+        debug_handler = urllib.request.HTTPHandler(debuglevel=1)
+        opener = urllib.request.build_opener(debug_handler, RedirctHandler)
+        html = None
+        response = None
+        try:
+            response = opener.open(url, timeout=10)
+            html = response.read()
+        except urllib.request.URLError as e:
+            if hasattr(e, 'code'):
+                error_info = e.code
+            elif hasattr(e, 'reason'):
+                error_info = e.reason
+        finally:
+            if response:
+                response.close()
+        if html:
+            return html
+        else:
+            return error_info
+
+
+html = RedirctHandler.getUnRedirectUrl('http://www.baidu.com')
+#print(html)
+
 
 '''
 # soup run success four
