@@ -6,7 +6,10 @@ import re
 import ssl
 import json
 import sys
+import os
+import http.cookiejar
 from bs4 import BeautifulSoup
+
 
 
 print(sys.stdout.encoding)
@@ -119,7 +122,7 @@ opener = urllib.request.build_opener()
 opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
 print(opener.open('http://www.example.com/'))
 opener.close()
-'''
+
 
 # from https://docs.python.org/3.8/howto/urllib2.html?highlight=httpbasicauthhandler
 #创建支持openerdirector的基本的http认证,方法1
@@ -149,8 +152,7 @@ response1 = urllib.request.urlopen(a_url, context=context)
 print(response1.getcode())
 
 
-'''
-# Create an OpenerDirector with support for Basic HTTP Authentication...
+# Create an OpenerDirector with support for Basic HTTP Authentication...方法2
 auth_handler = urllib.request.HTTPBasicAuthHandler()
 auth_handler.add_password(realm='PDQ Application',
                           uri='https://mahler:8092/site-updates.py',
@@ -162,6 +164,31 @@ urllib.request.install_opener(opener)
 response = urllib.request.urlopen('http://www.python.org/', context=context)
 print(response.getcode())
 
+
+# 需要倒入import urllib.request,http.cookiejar
+# httpcookieprocessor
+# 创建cookie容器
+cookie = http.cookiejar.CookieJar()
+handler = urllib.request.HTTPCookieProcessor(cookie)
+# 创建1个opener
+opener = urllib.request.build_opener(handler)
+# 使用带有cookie的url.request访问网页
+response = opener.open('http://www.baidu.com')
+for item in cookie:
+    print(item.name + '=' + item.value)
+'''
+
+
+# 需要倒入import urllib.request,http.cookiejar
+# httpcookieprocessor
+cookie2 = http.cookiejar.CookieJar()
+opener2 = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie2))
+urllib.request.install_opener(opener2)
+response2 = urllib.request.urlopen('http://www.baidu.com')
+for item2 in cookie2:
+    print(item2.name + '=' + item2.value)
+
+'''
 # soup run success four
 def main():
     # url = "http://www.baidu.com"
