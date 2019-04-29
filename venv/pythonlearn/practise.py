@@ -6,7 +6,7 @@ mailre = re.compile(r"(\w+@\w+\.\w+)")
 match = []
 mails = []
 
-with open('mailre.txt', 'r+') as f:
+with open('./txt/mailre.txt', 'r+') as f:
     for eachline in f:
         regex = re.compile(r"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\b",re.IGNORECASE)
         mails = re.findall(regex, eachline)
@@ -14,7 +14,7 @@ with open('mailre.txt', 'r+') as f:
     mails.sort(key=lambda x: len(x))
     print(mails)
 
-with open('test_new.txt', 'w+') as f1:
+with open('./txt/test_new.txt', 'w+') as f1:
     for i in range(len(mails)):
         s = str(mails[i]).replace('[', '').replace(']', '')
         s = s.replace("'", '').replace(',', '') + '\n'
