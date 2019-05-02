@@ -7,6 +7,8 @@ import sys
 import os
 import ssl
 
+
+# 正则表达式
 content = ssl._create_unverified_context
 
 http_connection.context = ssl.create_default_context(cafile=cfg.ca_certs_file)

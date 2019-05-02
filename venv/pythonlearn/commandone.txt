@@ -1,1 +1,11 @@
-dfs fds
+# -*- encoding: utf-8 -*-
+# command cellection
+pip install pyOpenSSL
+pip install Scrapy
+pip install --upgrade pip
+pip install service_identity
+ scrapy startproject tutoria
+
+You can start your first spider with:
+    cd tutoria
+    scrapy genspider example example.com
