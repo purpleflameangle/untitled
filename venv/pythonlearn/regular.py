@@ -9,10 +9,18 @@ import ssl
 
 
 # 正则表达式
-content = ssl._create_unverified_context
+'''
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+    '''
+ssl._create_default_https_context = ssl._create_unverified_context
 
-http_connection.context = ssl.create_default_context(cafile=cfg.ca_certs_file)
-http_connection.context_set = True
+# http_connection.context = ssl.create_default_context(cafile=cfg.ca_certs_file)
+# http_connection.context_set = True
 print(re.search(r"Fish(C|D)", "FishC"))
 # ^表示匹配字符串的开始位置，只有目标字符串出现在开头才会匹配
 print(re.search(r"^FishC", "I love FishC.com"))
@@ -30,7 +38,7 @@ def open_url(url1):
     req = urllib.request.Request(url1)
     req.add_header('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15')
     req.add_header('Content-Type', 'application/json')
-    response = urllib.request.urlopen(req, context=content)
+    response = urllib.request.urlopen(req)
     html = response.read().decode('utf-8', 'ignore')
     return html
 
@@ -50,5 +58,5 @@ def get_image(html):
 
 
 if __name__ == "__main__":
-    url = 'http://tieba.baidu.com/p/3823765471'
+    url = "http://tieba.baidu.com/p/3823765471"
     get_image(open_url(url))
