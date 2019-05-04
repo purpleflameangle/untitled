@@ -44,7 +44,6 @@ def open_url(url1):
 
 
 def get_image(html):
-
     p = r'<img class="BDE_Image".*?src="([^"]*\.jpg)".*?>'
     imglist = re.findall(p, html)
     try:
@@ -57,6 +56,15 @@ def get_image(html):
         urllib.request.urlretrieve(each, filename, None)
 
 
+def get_image1(html):
+    p = r'(([01]{0,1}\d{0,1}\d|2[0-4]\d|25[0-5])\.){3}([01]{0,1}\d{0,1}\d|2[0-4]\d|25[0-5])'
+    imglist1 = re.findall(p, html)
+    for each in imglist1:
+        print(each)
+
+
 if __name__ == "__main__":
     url = "http://tieba.baidu.com/p/3823765471"
     get_image(open_url(url))
+    url1 = "http://cn-proxy.com/"
+    get_image1(url1)
