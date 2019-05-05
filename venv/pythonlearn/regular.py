@@ -32,8 +32,35 @@ print(re.search(r"FishC$", "FishC.com!"))
 # 反斜杠\ 用于字符串转义
 # 拖字符^   用于取反
 # 表示重复的元字符还有：* ,+ 和?
+# 星号（*）表示相当于{0,}
+# 加号（+）表示相当于{1,}
+# 问号(?) 表示相当于{0,1}
+p = re.compile('ab*')
+print(p)
+p1 = re.compile('ab*', re.IGNORECASE)
+print(p1)
+p2 = re.compile('[a-z]+')
+print(p2)
+print(p2.match(''))
+m = p2.match('tempo')
+print(m)
+print(m.group())
+print(m.start(), m.end())
+print(m.span())
 
+p3 = re.compile(r'\d+')
+find = p3.findall('12 drummers drumming, 11 pipers piping')
+print(find)
 
+p3 = re.compile('...')
+m1 = p3.match('string goes')
+if m:
+    print('match found:', m1.group())
+else:
+    print('no match')
+
+'''
+# 获取美图run success
 def open_url(url1):
     req = urllib.request.Request(url1)
     req.add_header('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15')
@@ -68,3 +95,4 @@ if __name__ == "__main__":
     get_image(open_url(url))
     url1 = "http://cn-proxy.com/"
     get_image1(url1)
+'''
