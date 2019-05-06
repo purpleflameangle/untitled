@@ -9,6 +9,7 @@ import ssl
 
 
 # 正则表达式
+# https://docs.python.org/3.6/howto/regex.html?highlight=regular
 '''
 try:
     _create_unverified_https_context = ssl._create_unverified_context
@@ -58,6 +59,10 @@ if m:
     print('match found:', m1.group())
 else:
     print('no match')
+
+
+p = re.compile(r'\b(?P<word>\w+)\s+(?P=word)\b')
+print(p.search('Paris in the the spring').group())
 
 '''
 # 获取美图run success
