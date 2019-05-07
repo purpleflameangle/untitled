@@ -64,6 +64,17 @@ else:
 p = re.compile(r'\b(?P<word>\w+)\s+(?P=word)\b')
 print(p.search('Paris in the the spring').group())
 
+
+m = re.match("([abc])+", "abc")
+print(m.groups())
+
+m = re.match("(?:[abc])+", "abc")
+print(m.groups())
+
+p = re.compile(r'(?P<word>\b\w+\b)')
+m = p.search('(((( Lots of punctuation )))')
+print(m.group('word'))
+
 '''
 # 获取美图run success
 def open_url(url1):
