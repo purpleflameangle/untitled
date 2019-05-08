@@ -11,4 +11,8 @@ import scrapy
 class TutoriaItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    # pass
+
+    name = scrapy.Field()
+    title = scrapy.Field()
+    info = scrapy.Field()
