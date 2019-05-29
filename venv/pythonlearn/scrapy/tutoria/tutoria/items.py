@@ -16,3 +16,5 @@ class TutoriaItem(scrapy.Item):
     name = scrapy.Field()
     title = scrapy.Field()
     info = scrapy.Field()
+    link = scrapy.Field()
+    disc = scrapy.Field()
