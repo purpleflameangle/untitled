@@ -2,7 +2,6 @@
 import tkinter as tk
 
 
-
 # 创建一个主窗口，用于容纳整个gui程序
 root = tk.Tk()
 # 设置主窗口对象的标题栏
@@ -16,3 +15,26 @@ Label.pack()
 # 注意，这时候窗体还是不会显示的
 # 除非执行下面这条代码
 Label.mainloop()
+
+
+root = tk.Tk()
+root.title("hello world")
+label = tk.Label(root, text="this is label:hell world")
+label.pack()
+label.mainloop()
+
+
+class App:
+    def __init__(self, root):
+        frame = tk.Frame(root)
+        frame.pack()
+        self.hi_there = tk.Button(frame, text="hello world", fg=self.say_hi())
+        self.hi_there.pack(side=tk.LEFT)
+
+    def say_hi(self):
+        print("hello world")
+
+
+root = tk.Tk()
+app = App(root)
+root.mainloop()
