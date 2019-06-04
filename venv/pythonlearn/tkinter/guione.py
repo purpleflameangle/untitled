@@ -28,7 +28,7 @@ class App:
     def __init__(self, root):
         frame = tk.Frame(root)
         frame.pack()
-        self.hi_there = tk.Button(frame, text="hello world", fg=self.say_hi())
+        self.hi_there = tk.Button(frame, text="hello world", fg='blue', command=self.say_hi())
         self.hi_there.pack(side=tk.LEFT)
 
     def say_hi(self):
