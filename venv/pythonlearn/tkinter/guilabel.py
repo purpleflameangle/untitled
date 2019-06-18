@@ -12,3 +12,19 @@ imgLabel = Label(root, image=photo)
 imgLabel.pack(side=RIGHT)
 mainloop()
 
+
+root = Tk()
+photo = PhotoImage('js.jpg')
+textLabel1 = Label(
+    root,
+    text="hello world",
+    justify=LEFT,
+    image=photo,
+    compound=CENTER,
+    font=("微软雅黑", 15),
+    bg="red"
+)
+textLabel1.pack()
+mainloop()
+
+
