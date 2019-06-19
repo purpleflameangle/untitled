@@ -40,11 +40,42 @@ app = Application(master=root)
 app.mainloop()
 
 
+# checkbutton
+root = Tk()
+numb = ["一个", 'second', 'third', "four"]
+v = []
+for num in numb:
+    v.append(IntVar())
+    b = Checkbutton(root, text=numb, variable=v[-1])
+    b.pack()
+
+mainloop()
 
 
+root = Tk()
+v = IntVar()
+Radiobutton(root, text="One", variable=v, value=1).pack(anchor=W)
+Radiobutton(root, text="Second", variable=v, value=2).park(anchor=W)
+Radiobutton(root, text="third", variable=v, value=3).pack(anchor=W)
+mainloop()
 
 
+root = Tk()
+LANGS = [("Python", 1), ("Perl", 2), ("Ruby", 3), ("Lua", 4)]
+v = IntVar()
+v.set(1)
+for lang,num in LANGS:
+    b = Radiobutton(root, text=lang, variable=v, value=num)
+    b.pack(anchor=W)
+
+mainloop()
 
 
-
-
+root = Tk()
+LANGS = [("Python", 1), ("Perl", 2), ("Ruby", 3), ("Lua", 4)]
+v = IntVar()
+v.set(1)
+for lang, num in LANGS:
+    b = Radiobutton(root, text=lang, variable=v, value=num, indicatoron=False)
+    b.pack(fill=X)
+mainloop()
