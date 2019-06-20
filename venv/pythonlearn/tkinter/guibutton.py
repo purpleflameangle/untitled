@@ -55,8 +55,8 @@ mainloop()
 root = Tk()
 v = IntVar()
 Radiobutton(root, text="One", variable=v, value=1).pack(anchor=W)
-Radiobutton(root, text="Second", variable=v, value=2).park(anchor=W)
-Radiobutton(root, text="third", variable=v, value=3).pack(anchor=W)
+# Radiobutton(root, text="Second", variable=v, value=2).park(anchor=W)
+# Radiobutton(root, text="third", variable=v, value=3).pack(anchor=W)
 mainloop()
 
 
@@ -72,10 +72,12 @@ mainloop()
 
 
 root = Tk()
+group = LabelFrame(root, text="this is select", padx=5, pady=5)
+group.pack(padx=10, pady=10)
 LANGS = [("Python", 1), ("Perl", 2), ("Ruby", 3), ("Lua", 4)]
 v = IntVar()
 v.set(1)
 for lang, num in LANGS:
-    b = Radiobutton(root, text=lang, variable=v, value=num, indicatoron=False)
+    b = Radiobutton(group, text=lang, variable=v, value=num, indicatoron=False)
     b.pack(fill=X)
 mainloop()
